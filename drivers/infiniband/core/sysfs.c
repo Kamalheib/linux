@@ -1263,12 +1263,21 @@ static ssize_t node_desc_store(struct device *device,
 {
 	struct ib_device *dev = rdma_device_to_ibdev(device);
 	struct ib_device_modify desc = {};
+	size_t len;
 	int ret;
 
 	if (!dev->ops.modify_device)
 		return -EOPNOTSUPP;
 
-	memcpy(desc.node_desc, buf, min_t(int, count, IB_DEVICE_NODE_DESC_MAX));
+	if (count > IB_DEVICE_NODE_DESC_MAX)
+		return -EINVAL;
+
+	len = strlen(buf);
+	if (buf[len - 1] == '\n')
+		len--;
+
+	strncpy(desc.node_desc, buf, len);
+	desc.node_desc[len] = 0;
 	ret = ib_modify_device(dev, IB_DEVICE_MODIFY_NODE_DESC, &desc);
 	if (ret)
 		return ret;
