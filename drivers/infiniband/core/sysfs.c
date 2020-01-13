@@ -1265,10 +1265,13 @@ static ssize_t node_desc_store(struct device *device,
 	struct ib_device_modify desc = {};
 	int ret;
 
+	if (count > IB_DEVICE_NODE_DESC_MAX)
+		return -EINVAL;
+
 	if (!dev->ops.modify_device)
 		return -EOPNOTSUPP;
 
-	memcpy(desc.node_desc, buf, min_t(int, count, IB_DEVICE_NODE_DESC_MAX));
+	memcpy(desc.node_desc, buf, count);
 	ret = ib_modify_device(dev, IB_DEVICE_MODIFY_NODE_DESC, &desc);
 	if (ret)
 		return ret;
