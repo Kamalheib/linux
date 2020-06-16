@@ -10,14 +10,49 @@
 
 #include "rdmasim.h"
 
+static struct rdmasim_device *rdmasim_create_device(void)
+{
+	struct rdmasim_device *rdev;
+
+	rdev = ib_alloc_device(rdmasim_device, ibdev);
+	if(!rdev)
+		return NULL;
+
+	return rdev;
+}
+
+static int rdmasim_newlink(const char *ibdev_name, struct net_device *netdev)
+{
+	struct rdmasim_device *rdev;
+	struct ib_device *ib_dev;
+
+	ib_dev = ib_device_get_by_netdev(netdev, RDMA_DRIVER_RDMASIM);
+	if (ib_dev) {
+		ib_device_put(ib_dev);
+		return -EEXIST;
+	}
+
+	rdev = rdmasim_create_device();
+	if (!rdev)
+		return -ENOMEM;
+
+	return 0;
+}
+
+static struct rdma_link_ops rdmasim_link_ops = {
+	.type = "rdmasim",
+	.newlink = rdmasim_newlink,
+};
 
 static __init int rdmasim_init_module(void)
 {
+	rdma_link_register(&rdmasim_link_ops);
 	return 0;
 }
 
 static __exit void rdmasim_exit_module(void)
 {
+	rdma_link_unregister(&rdmasim_link_ops);
 }
 
 module_init(rdmasim_init_module);

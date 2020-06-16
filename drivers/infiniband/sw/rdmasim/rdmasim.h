@@ -9,4 +9,8 @@
 
 #define RDMASIM_NODE_DESC "Software RDMA suimlator"
 
+struct rdmasim_device {
+	struct ib_device ibdev;
+};
+
 #endif
