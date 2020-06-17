@@ -5,18 +5,29 @@
  */
 
 #include <linux/module.h>
+#include <linux/dma-mapping.h>
 #include <rdma/rdma_netlink.h>
 #include <rdma/ib_verbs.h>
 
 #include "rdmasim.h"
 
-static struct rdmasim_device *rdmasim_create_device(void)
+static struct rdmasim_device *rdmasim_create_device(struct net_device *netdev)
 {
 	struct rdmasim_device *rdev;
+	struct ib_device *ibdev;
 
 	rdev = ib_alloc_device(rdmasim_device, ibdev);
 	if(!rdev)
 		return NULL;
+
+	rdev->netdev = netdev;
+	ibdev = &rdev->ibdev;
+
+	strlcpy(ibdev->node_desc, RDMASIM_NODE_DESC, sizeof(ibdev->node_desc));
+	ibdev->node_type = RDMA_NODE_IB_CA;
+	ibdev->phys_port_cnt = RDMASIM_MAX_PORT;
+	ibdev->dev.parent = netdev->dev.parent;
+	ibdev->dev.dma_ops = &dma_virt_ops;
 
 	return rdev;
 }
@@ -32,7 +43,7 @@ static int rdmasim_newlink(const char *ibdev_name, struct net_device *netdev)
 		return -EEXIST;
 	}
 
-	rdev = rdmasim_create_device();
+	rdev = rdmasim_create_device(netdev);
 	if (!rdev)
 		return -ENOMEM;
 
