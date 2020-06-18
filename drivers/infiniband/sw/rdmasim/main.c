@@ -32,10 +32,40 @@ static struct rdmasim_device *rdmasim_create_device(struct net_device *netdev)
 	return rdev;
 }
 
+static void rdmasim_destroy_device(struct rdmasim_device *rdev)
+{
+	struct ib_device *ibdev = &rdev->ibdev;
+
+	ib_dealloc_device(ibdev);
+}
+
+static int rdmasim_register_device(struct rdmasim_device *rdev,
+				   const char *ibdev_name)
+{
+	struct net_device *netdev = rdev->netdev;
+	struct ib_device *ibdev = &rdev->ibdev;
+	int ret;
+
+	ret = ib_device_set_netdev(ibdev, netdev, 1);
+	if (ret) {
+		pr_err("rdmasim: Failed to set netdevice, error=%d\n", ret);
+		return ret;
+	}
+
+	ret = ib_register_device(ibdev, ibdev_name);
+	if (ret) {
+		pr_err("rdmasim: Failed to register device, error=%d\n", ret);
+		return ret;
+	}
+
+	return 0;
+}
+
 static int rdmasim_newlink(const char *ibdev_name, struct net_device *netdev)
 {
 	struct rdmasim_device *rdev;
 	struct ib_device *ib_dev;
+	int ret;
 
 	ib_dev = ib_device_get_by_netdev(netdev, RDMA_DRIVER_RDMASIM);
 	if (ib_dev) {
@@ -46,6 +76,12 @@ static int rdmasim_newlink(const char *ibdev_name, struct net_device *netdev)
 	rdev = rdmasim_create_device(netdev);
 	if (!rdev)
 		return -ENOMEM;
+
+	ret = rdmasim_register_device(rdev, ibdev_name);
+	if (ret) {
+		rdmasim_destroy_device(rdev);
+		return ret;
+	}
 
 	return 0;
 }
