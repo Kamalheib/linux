@@ -707,8 +707,7 @@ static void ipoib_flush_ah(struct net_device *dev)
 {
 	struct ipoib_dev_priv *priv = ipoib_priv(dev);
 
-	cancel_delayed_work(&priv->ah_reap_task);
-	flush_workqueue(priv->wq);
+	cancel_delayed_work_sync(&priv->ah_reap_task);
 	ipoib_reap_ah(&priv->ah_reap_task.work);
 }
 
