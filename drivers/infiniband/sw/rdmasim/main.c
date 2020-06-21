@@ -10,6 +10,11 @@
 #include <rdma/ib_verbs.h>
 
 #include "rdmasim.h"
+#include "verbs.h"
+
+static const struct ib_device_ops rdmasim_dev_ops = {
+	.get_port_immutable = rdmasim_get_port_immutable,
+};
 
 static struct rdmasim_device *rdmasim_create_device(struct net_device *netdev)
 {
@@ -28,6 +33,7 @@ static struct rdmasim_device *rdmasim_create_device(struct net_device *netdev)
 	ibdev->phys_port_cnt = RDMASIM_MAX_PORT;
 	ibdev->dev.parent = netdev->dev.parent;
 	ibdev->dev.dma_ops = &dma_virt_ops;
+	ib_set_device_ops(ibdev, &rdmasim_dev_ops);
 
 	return rdev;
 }
