@@ -11,4 +11,8 @@
 int rdmasim_get_port_immutable(struct ib_device *device, u8 port_num,
 			       struct ib_port_immutable *immutable);
 
+int rdmasim_query_device(struct ib_device *device,
+			 struct ib_device_attr *device_attr,
+			 struct ib_udata *udata);
+
 #endif
