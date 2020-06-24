@@ -21,3 +21,9 @@ int rdmasim_query_device(struct ib_device *device,
 {
 	return 0;
 }
+
+int rdmasim_query_port(struct ib_device *device, u8 port_num,
+		       struct ib_port_attr *port_attr)
+{
+	return 0;
+}
