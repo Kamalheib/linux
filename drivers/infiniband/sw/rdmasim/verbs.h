@@ -18,4 +18,7 @@ int rdmasim_query_device(struct ib_device *device,
 int rdmasim_query_port(struct ib_device *device, u8 port_num,
 		       struct ib_port_attr *port_attr);
 
+int rdmasim_query_gid(struct ib_device *device, u8 port_num,
+		      int index, union ib_gid *gid);
+
 #endif

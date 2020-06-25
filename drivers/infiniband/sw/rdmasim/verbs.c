@@ -27,3 +27,9 @@ int rdmasim_query_port(struct ib_device *device, u8 port_num,
 {
 	return 0;
 }
+
+int rdmasim_query_gid(struct ib_device *device, u8 port_num,
+		      int index, union ib_gid *gid)
+{
+	return 0;
+}
