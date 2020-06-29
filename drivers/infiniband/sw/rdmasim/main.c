@@ -109,6 +109,7 @@ static __init int rdmasim_init_module(void)
 static __exit void rdmasim_exit_module(void)
 {
 	rdma_link_unregister(&rdmasim_link_ops);
+	ib_unregister_driver(RDMA_DRIVER_RDMASIM);
 }
 
 module_init(rdmasim_init_module);
