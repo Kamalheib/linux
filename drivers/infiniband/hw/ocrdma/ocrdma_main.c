@@ -173,7 +173,6 @@ static const struct ib_device_ops ocrdma_dev_ops = {
 	.process_mad = ocrdma_process_mad,
 	.query_ah = ocrdma_query_ah,
 	.query_device = ocrdma_query_device,
-	.query_pkey = ocrdma_query_pkey,
 	.query_port = ocrdma_query_port,
 	.query_qp = ocrdma_query_qp,
 	.reg_user_mr = ocrdma_reg_user_mr,

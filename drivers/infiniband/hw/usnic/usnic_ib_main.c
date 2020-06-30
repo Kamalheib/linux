@@ -355,7 +355,6 @@ static const struct ib_device_ops usnic_dev_ops = {
 	.modify_qp = usnic_ib_modify_qp,
 	.query_device = usnic_ib_query_device,
 	.query_gid = usnic_ib_query_gid,
-	.query_pkey = usnic_ib_query_pkey,
 	.query_port = usnic_ib_query_port,
 	.query_qp = usnic_ib_query_qp,
 	.reg_user_mr = usnic_ib_reg_mr,

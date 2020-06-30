@@ -260,7 +260,6 @@ static const struct ib_device_ops efa_dev_ops = {
 	.modify_qp = efa_modify_qp,
 	.query_device = efa_query_device,
 	.query_gid = efa_query_gid,
-	.query_pkey = efa_query_pkey,
 	.query_port = efa_query_port,
 	.query_qp = efa_query_qp,
 	.reg_user_mr = efa_reg_mr,

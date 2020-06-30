@@ -221,7 +221,6 @@ static const struct ib_device_ops qedr_dev_ops = {
 	.post_srq_recv = qedr_post_srq_recv,
 	.process_mad = qedr_process_mad,
 	.query_device = qedr_query_device,
-	.query_pkey = qedr_query_pkey,
 	.query_port = qedr_query_port,
 	.query_qp = qedr_query_qp,
 	.query_srq = qedr_query_srq,

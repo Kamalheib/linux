@@ -102,7 +102,6 @@
 
 #define HNS_ROCE_FRMR_MAX_PA			512
 
-#define PKEY_ID					0xffff
 #define GUID_LEN				8
 #define NODE_DESC_SIZE				64
 #define DB_REG_OFFSET				0x1000

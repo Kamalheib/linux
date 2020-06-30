@@ -39,8 +39,6 @@ int qedr_query_port(struct ib_device *, u8 port, struct ib_port_attr *props);
 int qedr_iw_query_gid(struct ib_device *ibdev, u8 port,
 		      int index, union ib_gid *gid);
 
-int qedr_query_pkey(struct ib_device *, u8 port, u16 index, u16 *pkey);
-
 int qedr_alloc_ucontext(struct ib_ucontext *uctx, struct ib_udata *udata);
 void qedr_dealloc_ucontext(struct ib_ucontext *uctx);
 

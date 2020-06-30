@@ -72,15 +72,6 @@ static inline int qedr_ib_copy_to_udata(struct ib_udata *udata, void *src,
 	return ib_copy_to_udata(udata, src, min_len);
 }
 
-int qedr_query_pkey(struct ib_device *ibdev, u8 port, u16 index, u16 *pkey)
-{
-	if (index >= QEDR_ROCE_PKEY_TABLE_LEN)
-		return -EINVAL;
-
-	*pkey = QEDR_ROCE_PKEY_DEFAULT;
-	return 0;
-}
-
 int qedr_iw_query_gid(struct ib_device *ibdev, u8 port,
 		      int index, union ib_gid *sgid)
 {

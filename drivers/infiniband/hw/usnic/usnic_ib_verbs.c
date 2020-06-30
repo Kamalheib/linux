@@ -437,16 +437,6 @@ int usnic_ib_query_gid(struct ib_device *ibdev, u8 port, int index,
 	return 0;
 }
 
-int usnic_ib_query_pkey(struct ib_device *ibdev, u8 port, u16 index,
-				u16 *pkey)
-{
-	if (index > 0)
-		return -EINVAL;
-
-	*pkey = 0xffff;
-	return 0;
-}
-
 int usnic_ib_alloc_pd(struct ib_pd *ibpd, struct ib_udata *udata)
 {
 	struct usnic_ib_pd *pd = to_upd(ibpd);

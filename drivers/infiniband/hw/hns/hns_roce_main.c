@@ -276,14 +276,6 @@ static enum rdma_link_layer hns_roce_get_link_layer(struct ib_device *device,
 	return IB_LINK_LAYER_ETHERNET;
 }
 
-static int hns_roce_query_pkey(struct ib_device *ib_dev, u8 port, u16 index,
-			       u16 *pkey)
-{
-	*pkey = PKEY_ID;
-
-	return 0;
-}
-
 static int hns_roce_modify_device(struct ib_device *ib_dev, int mask,
 				  struct ib_device_modify *props)
 {
@@ -437,7 +429,6 @@ static const struct ib_device_ops hns_roce_dev_ops = {
 	.modify_qp = hns_roce_modify_qp,
 	.query_ah = hns_roce_query_ah,
 	.query_device = hns_roce_query_device,
-	.query_pkey = hns_roce_query_pkey,
 	.query_port = hns_roce_query_port,
 	.reg_user_mr = hns_roce_reg_user_mr,
 

@@ -236,14 +236,6 @@ static int c4iw_allocate_pd(struct ib_pd *pd, struct ib_udata *udata)
 	return 0;
 }
 
-static int c4iw_query_pkey(struct ib_device *ibdev, u8 port, u16 index,
-			   u16 *pkey)
-{
-	pr_debug("ibdev %p\n", ibdev);
-	*pkey = 0;
-	return 0;
-}
-
 static int c4iw_query_gid(struct ib_device *ibdev, u8 port, int index,
 			  union ib_gid *gid)
 {
@@ -503,7 +495,6 @@ static const struct ib_device_ops c4iw_dev_ops = {
 	.post_srq_recv = c4iw_post_srq_recv,
 	.query_device = c4iw_query_device,
 	.query_gid = c4iw_query_gid,
-	.query_pkey = c4iw_query_pkey,
 	.query_port = c4iw_query_port,
 	.query_qp = c4iw_ib_query_qp,
 	.reg_user_mr = c4iw_reg_user_mr,

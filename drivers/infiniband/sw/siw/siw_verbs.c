@@ -211,13 +211,6 @@ int siw_get_port_immutable(struct ib_device *base_dev, u8 port,
 	return 0;
 }
 
-int siw_query_pkey(struct ib_device *base_dev, u8 port, u16 idx, u16 *pkey)
-{
-	/* Report the default pkey */
-	*pkey = 0xffff;
-	return 0;
-}
-
 int siw_query_gid(struct ib_device *base_dev, u8 port, int idx,
 		  union ib_gid *gid)
 {

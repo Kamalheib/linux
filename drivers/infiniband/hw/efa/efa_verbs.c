@@ -316,16 +316,6 @@ int efa_query_gid(struct ib_device *ibdev, u8 port, int index,
 	return 0;
 }
 
-int efa_query_pkey(struct ib_device *ibdev, u8 port, u16 index,
-		   u16 *pkey)
-{
-	if (index > 0)
-		return -EINVAL;
-
-	*pkey = 0xffff;
-	return 0;
-}
-
 static int efa_pd_dealloc(struct efa_dev *dev, u16 pdn)
 {
 	struct efa_com_dealloc_pd_params params = {
