@@ -2357,7 +2357,14 @@ int ib_query_pkey(struct ib_device *device,
 	if (!rdma_is_port_valid(device, port_num))
 		return -EINVAL;
 
-	return device->ops.query_pkey(device, port_num, index, pkey);
+	if (device->ops.query_pkey)
+		return device->ops.query_pkey(device, port_num, index, pkey);
+
+	if (index > 0)
+		return -EINVAL;
+
+	*pkey = IB_DEFAULT_PKEY_FULL;
+	return 0;
 }
 EXPORT_SYMBOL(ib_query_pkey);
 
