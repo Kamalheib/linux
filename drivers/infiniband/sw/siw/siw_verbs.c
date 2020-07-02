@@ -151,6 +151,7 @@ int siw_query_device(struct ib_device *base_dev, struct ib_device_attr *attr,
 	attr->max_srq = sdev->attrs.max_srq;
 	attr->max_srq_sge = sdev->attrs.max_srq_sge;
 	attr->max_srq_wr = sdev->attrs.max_srq_wr;
+	attr->max_pkeys = 1;
 	attr->page_size_cap = PAGE_SIZE;
 	attr->vendor_id = SIW_VENDOR_ID;
 	attr->vendor_part_id = sdev->vendor_part_id;
