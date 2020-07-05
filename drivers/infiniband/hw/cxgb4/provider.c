@@ -298,6 +298,7 @@ static int c4iw_query_device(struct ib_device *ibdev, struct ib_device_attr *pro
 	props->local_ca_ack_delay = 0;
 	props->max_fast_reg_page_list_len =
 		t4_max_fr_depth(dev->rdev.lldi.ulptx_memwrite_dsgl && use_dsgl);
+	props->max_pkeys = 1;
 
 	return 0;
 }
