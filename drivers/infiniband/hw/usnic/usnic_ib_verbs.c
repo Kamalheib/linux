@@ -309,7 +309,7 @@ int usnic_ib_query_device(struct ib_device *ibdev,
 	props->max_pd = USNIC_UIOM_MAX_PD_CNT;
 	props->max_mr = USNIC_UIOM_MAX_MR_CNT;
 	props->local_ca_ack_delay = 0;
-	props->max_pkeys = 0;
+	props->max_pkeys = 1;
 	props->atomic_cap = IB_ATOMIC_NONE;
 	props->masked_atomic_cap = props->atomic_cap;
 	props->max_qp_rd_atom = 0;
