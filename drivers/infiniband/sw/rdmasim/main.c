@@ -14,6 +14,8 @@
 
 static const struct ib_device_ops rdmasim_dev_ops = {
 	.owner = THIS_MODULE,
+	.driver_id = RDMA_DRIVER_RDMASIM,
+
 	.get_port_immutable = rdmasim_get_port_immutable,
 	.query_device = rdmasim_query_device,
 	.query_port = rdmasim_query_port,
