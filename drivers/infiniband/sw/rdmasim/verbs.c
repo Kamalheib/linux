@@ -4,9 +4,11 @@
  * Copyright (C) 2020 Kamal Heib <kamalheib1@gmail.com>
  */
 
+#include <rdma/ib_verbs.h>
+#include <net/addrconf.h>
 #include <linux/types.h>
 
-#include <rdma/ib_verbs.h>
+#include "rdmasim.h"
 
 int rdmasim_get_port_immutable(struct ib_device *device, u8 port_num,
 			       struct ib_port_immutable *immutable)
@@ -19,6 +21,10 @@ int rdmasim_query_device(struct ib_device *device,
 			 struct ib_device_attr *device_attr,
 			 struct ib_udata *udata)
 {
+	struct rdmasim_device *rdev = to_rdmasim_dev(device);
+
+	addrconf_addr_eui48((unsigned char *)&device_attr->sys_image_guid,
+			    rdev->netdev->dev_addr);
 	return 0;
 }
 

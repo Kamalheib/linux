@@ -15,4 +15,9 @@ struct rdmasim_device {
 	struct net_device *netdev;
 };
 
+static inline struct rdmasim_device *to_rdmasim_dev(struct ib_device *ibdev)
+{
+	return container_of(ibdev, struct rdmasim_device, ibdev);
+}
+
 #endif
