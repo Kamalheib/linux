@@ -23,6 +23,7 @@ int rdmasim_query_device(struct ib_device *device,
 {
 	struct rdmasim_device *rdev = to_rdmasim_dev(device);
 
+	device_attr->device_cap_flags = IB_DEVICE_ALLOW_USER_UNREG;
 	addrconf_addr_eui48((unsigned char *)&device_attr->sys_image_guid,
 			    rdev->netdev->dev_addr);
 	return 0;
