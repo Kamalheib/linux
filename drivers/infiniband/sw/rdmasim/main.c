@@ -18,6 +18,7 @@ static const struct ib_device_ops rdmasim_dev_ops = {
 	.driver_id = RDMA_DRIVER_RDMASIM,
 
 	.dealloc_driver = rdmasim_dealloc,
+	.get_link_layer = rdmasim_get_link_layer,
 	.get_port_immutable = rdmasim_get_port_immutable,
 	.query_device = rdmasim_query_device,
 	.query_gid = rdmasim_query_gid,

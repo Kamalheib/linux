@@ -44,3 +44,9 @@ int rdmasim_query_gid(struct ib_device *device, u8 port_num,
 void rdmasim_dealloc(struct ib_device *dev)
 {
 }
+
+enum rdma_link_layer rdmasim_get_link_layer(struct ib_device *device,
+					    u8 port_num)
+{
+	return IB_LINK_LAYER_ETHERNET;
+}
