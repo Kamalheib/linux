@@ -40,3 +40,7 @@ int rdmasim_query_gid(struct ib_device *device, u8 port_num,
 {
 	return 0;
 }
+
+void rdmasim_dealloc(struct ib_device *dev)
+{
+}

@@ -21,4 +21,6 @@ int rdmasim_query_port(struct ib_device *device, u8 port_num,
 int rdmasim_query_gid(struct ib_device *device, u8 port_num,
 		      int index, union ib_gid *gid);
 
+void rdmasim_dealloc(struct ib_device *dev);
+
 #endif
