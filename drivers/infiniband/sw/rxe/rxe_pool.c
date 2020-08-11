@@ -139,6 +139,9 @@ int rxe_cache_init(void)
 	for (i = 0; i < RXE_NUM_TYPES; i++) {
 		type = &rxe_type_info[i];
 		size = ALIGN(type->size, RXE_POOL_ALIGN);
+		if (type->cache)
+			continue;
+
 		if (!(type->flags & RXE_POOL_NO_ALLOC)) {
 			type->cache =
 				kmem_cache_create(type->name, size,

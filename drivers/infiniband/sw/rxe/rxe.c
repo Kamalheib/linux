@@ -318,6 +318,13 @@ static int rxe_newlink(const char *ibdev_name, struct net_device *ndev)
 		goto err;
 	}
 
+	/* initialize slab caches for managed objects */
+	err = rxe_cache_init();
+	if (err) {
+		pr_err("unable to init object pools\n");
+		goto err;
+	}
+
 	err = rxe_net_add(ibdev_name, ndev);
 	if (err) {
 		pr_err("failed to add %s\n", ndev->name);
@@ -335,13 +342,6 @@ static struct rdma_link_ops rxe_link_ops = {
 static int __init rxe_module_init(void)
 {
 	int err;
-
-	/* initialize slab caches for managed objects */
-	err = rxe_cache_init();
-	if (err) {
-		pr_err("unable to init object pools\n");
-		return err;
-	}
 
 	err = rxe_net_init();
 	if (err)

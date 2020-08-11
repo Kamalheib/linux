@@ -81,6 +81,13 @@ static int rxe_param_set_add(const char *val, const struct kernel_param *kp)
 		goto err;
 	}
 
+	/* initialize slab caches for managed objects */
+	err = rxe_cache_init();
+	if (err) {
+		pr_err("unable to init object pools\n");
+		goto err;
+	}
+
 	err = rxe_net_add("rxe%d", ndev);
 	if (err) {
 		pr_err("failed to add %s\n", intf);
