@@ -252,6 +252,13 @@ static int rxe_init(struct rxe_dev *rxe)
 	/* init default device parameters */
 	rxe_init_device_param(rxe);
 
+	/* initialize slab caches for managed objects */
+	err = rxe_cache_init();
+	if (err) {
+		pr_err("unable to init object pools\n");
+		return err;
+	}
+
 	err = rxe_init_ports(rxe);
 	if (err)
 		goto err1;
@@ -335,13 +342,6 @@ static struct rdma_link_ops rxe_link_ops = {
 static int __init rxe_module_init(void)
 {
 	int err;
-
-	/* initialize slab caches for managed objects */
-	err = rxe_cache_init();
-	if (err) {
-		pr_err("unable to init object pools\n");
-		return err;
-	}
 
 	err = rxe_net_init();
 	if (err)
