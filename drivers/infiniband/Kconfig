@@ -95,6 +95,7 @@ source "drivers/infiniband/hw/qedr/Kconfig"
 source "drivers/infiniband/sw/rdmavt/Kconfig"
 source "drivers/infiniband/sw/rxe/Kconfig"
 source "drivers/infiniband/sw/siw/Kconfig"
+source "drivers/infiniband/sw/rdmasim/Kconfig"
 endif
 
 source "drivers/infiniband/ulp/ipoib/Kconfig"

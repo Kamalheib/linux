@@ -1,0 +1,9 @@
+config RDMASIM
+	tristate "Software RDMA simulator driver"
+	depends on INET && INFINIBAND
+	help
+	This driver is a developer testing tool and software model that can
+	be used to test various RDMA APIs.
+
+	To compile this driver as module, choose M here: the module will be
+	called rdmasim.
