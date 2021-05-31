@@ -7,4 +7,12 @@
 #ifndef _RDMASIM_H
 #define _RDMASIM_H
 
+#define RDMASIM_MAX_PORT 1
+#define RDMASIM_NODE_DESC "Software RDMA suimlator"
+
+struct rdmasim_device {
+	struct ib_device ibdev;
+	struct net_device *netdev;
+};
+
 #endif
