@@ -1696,6 +1696,7 @@ static int nldev_newlink(struct sk_buff *skb, struct nlmsghdr *nlh,
 	const struct rdma_link_ops *ops;
 	char ndev_name[IFNAMSIZ];
 	struct net_device *ndev;
+	struct ib_device *ibdev;
 	char type[IFNAMSIZ];
 	int err;
 
@@ -1717,6 +1718,12 @@ static int nldev_newlink(struct sk_buff *skb, struct nlmsghdr *nlh,
 	ndev = dev_get_by_name(sock_net(skb->sk), ndev_name);
 	if (!ndev)
 		return -ENODEV;
+
+	ibdev = ib_device_get_by_netdev(ndev, RDMA_DRIVER_UNKNOWN);
+	if (ibdev) {
+		ib_device_put(ibdev);
+		return -EINVAL;
+	}
 
 	down_read(&link_ops_rwsem);
 	ops = link_ops_get(type);
